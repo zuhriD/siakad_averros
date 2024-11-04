@@ -1,27 +1,13 @@
-<!--
-=========================================================
-* Soft UI Dashboard 3 - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+<?php include '../../connection/security_auth.php'?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="../../assets/img/logoaverroes.png">
   <title>
-    Soft UI Dashboard 3 by Creative Tim
+    Sign Up | Siakad Averros School
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
@@ -94,15 +80,15 @@
                 </div>
               </div>
               <div class="card-body">
-                <form role="form text-left">
+                <form role="form text-left" action="../../controller/auth/register_controller.php" method="post">
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="username-addon">
+                    <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="username-addon" name="nama">
                   </div>
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="username" aria-describedby="username-addon">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="username" aria-describedby="username-addon" name="username">
                   </div>
                   <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon" name="password">
                   </div>
                   <div class="form-check form-check-info text-left">
                     <input class="gradient form-check-input " type="checkbox" value="" id="flexCheckDefault" checked>
@@ -111,9 +97,9 @@
                     </label>
                   </div>
                   <div class="text-center">
-                    <button type="button" class="btn bg-gradient-info w-100 my-4 mb-2">Sign up</button>
+                    <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Sign up</button>
                   </div>
-                  <p class="text-sm mt-3 mb-0">Already have an account? <a href="javascript:;" class="text-info text-gradient font-weight-bolder">Sign in</a></p>
+                  <p class="text-sm mt-3 mb-0">Already have an account? <a href="./signin.php" class="text-info text-gradient font-weight-bolder">Sign in</a></p>
                 </form>
               </div>
             </div>
