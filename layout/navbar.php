@@ -19,7 +19,7 @@
                 <li class="nav-item dropdown pe-2 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-user me-sm-1"></i>
-                        <span class="d-sm-inline d-none text-bold">Sign In</span>
+                        <span class="d-sm-inline d-none text-bold"><?= $_SESSION['nama'] ?></span>
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                         <li class="mb-2">
@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="mb-2">
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
+                            <a class="dropdown-item border-radius-md" href="../../controller/auth/logout_controller.php">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
                                         <i class="fa fa-lock me-3"></i>
@@ -50,10 +50,6 @@
                                         <h6 class="text-sm font-weight-normal mb-1">
                                             <span class="font-weight-bold">Logout</span> 
                                         </h6>
-                                        <p class="text-xs text-secondary mb-0 ">
-                                            <i class="fa fa-clock me-1"></i>
-                                            1 day
-                                        </p>
                                     </div>
                                 </div>
                             </a>
