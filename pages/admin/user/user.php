@@ -19,6 +19,13 @@
   <link
     rel="stylesheet"
     href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+
+  <!-- Datatables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+
+  <!-- Datatables -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -40,12 +47,42 @@
             <div class="card-header d-flex justify-content-between align-items-center pb-0">
               <h6>Daftar User</h6>
               <!-- Add button -->
-              <a href="../../../controller/admin/user_controller.php?action=add" class="btn bg-gradient-success mt-2"><i class="fas fa-plus"></i> Tambah User</a>
+              <a href="#" class="btn bg-success text-white mt-2" data-bs-toggle="modal" data-bs-target="#modal-add"><i class="fas fa-plus"></i> Tambah User</a>
             </div>
 
+            <?php if (isset($_SESSION['message']) && $_SESSION['message'] == 'success'): ?>
+              <!-- show sweet alert success -->
+              <!-- Show SweetAlert success -->
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data berhasil ditambahkan',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  });
+                });
+              </script>
+
+            <?php
+            elseif (isset($_SESSION['message']) && $_SESSION['message'] == 'error'): ?>
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  Swal.fire({
+                    title: 'Gagal!',
+                    text: 'Data gagal ditambahkan',
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                  });
+                });
+              </script>
+            <?php
+            endif;
+            unset($_SESSION['message']);
+            ?>
             <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
+              <div class="table-responsive p-0 m-4">
+                <table class="table align-items-center mb-0" id="tabelUser">
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
@@ -64,7 +101,7 @@
                     ?>
                       <tr>
                         <td>
-                          <p class="text-sm font-weight-bold mb-0"><?= $no++ ?></p>
+                          <p class="text-sm font-weight-bold mb-0 "><?= $no++ ?></p>
                         </td>
                         <td>
                           <p class="text-sm font-weight-bold mb-0"><?= $row['nama_user'] ?></p>
@@ -76,10 +113,10 @@
                           <span class="badge badge-sm bg-gradient-primary"><?= $row['role'] ?></span>
                         </td>
                         <td class="align-middle text-center">
-                          <a href="../../../controller/admin/user_controller.php?id=<?= $row['id'] ?>?action=edit" class="text-secondary font-weight-bold text-xs">
+                          <a href="../../../controller/admin/user_controller.php?id=<?= $row['id'] ?>&action=edit" class="text-secondary font-weight-bold text-xs">
                             <i class="fas fa-edit"></i>
                           </a>
-                          <a href="../../../controller/admin/user_controller.php?id=<?= $row['id'] ?>?action=delete" class="text-secondary font-weight-bold text-xs">
+                          <a href="../../../controller/admin/user_controller.php?id=<?= $row['id'] ?>&action=delete" class="text-secondary font-weight-bold text-xs" onclick="confirmDelete(event, <?= $row['id'] ?>)">
                             <i class="fas fa-trash"></i>
                           </a>
                         </td>
@@ -111,7 +148,11 @@
         </footer>
       </div>
   </main>
+
+  <?php include './add.php' ?>
   <?php include '../../../layout/sidebar_conf.php' ?>
+  <!-- Sweet alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!--   Core JS Files   -->
   <script src="../../../assets/js/core/popper.min.js"></script>
   <script src="../../../assets/js/core/bootstrap.min.js"></script>
@@ -123,6 +164,33 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../../../assets/js/soft-ui-dashboard.min.js"></script>
+  <script>
+    let table = new DataTable('#tabelUser');
+
+    function confirmDelete(event, id) {
+      event.preventDefault(); // Prevent the default action of the <a> tag
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+          setTimeout(() => {
+            window.location.href = '../../../controller/admin/user_controller.php?id=' + id + '&action=delete';
+          }, 2000);
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>
