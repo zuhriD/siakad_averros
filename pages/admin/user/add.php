@@ -13,19 +13,19 @@
             <form action="../../../controller/admin/user_controller.php?action=add" method="POST">
             <div class="form-group">
                 <label for="nama">Nama</label>
-                <input type="text" class="form-control" id="nama" name="nama" required>
+                <input type="text" class="form-control"  name="nama" required>
             </div>
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <input type="text" class="form-control"  name="username" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <input type="password" class="form-control"  name="password" required>
             </div>
             <div class="form-group">
                 <label for="role">Role</label>
-                <select class="form-control" id="role" name="role" required>
+                <select class="form-control"  name="role" required>
                     <option value="">Pilih Role</option>
                     <option value="1">Admin</option>
                     <option value="2">Guru</option>

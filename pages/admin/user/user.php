@@ -47,38 +47,39 @@
             <div class="card-header d-flex justify-content-between align-items-center pb-0">
               <h6>Daftar User</h6>
               <!-- Add button -->
-              <a href="#" class="btn bg-success text-white mt-2" data-bs-toggle="modal" data-bs-target="#modal-add"><i class="fas fa-plus"></i> Tambah User</a>
+              <a href="" class="btn bg-success text-white mt-2" data-bs-toggle="modal" data-bs-target="#modal-add"><i class="fas fa-plus"></i> Tambah User</a>
             </div>
 
-            <?php if (isset($_SESSION['message']) && $_SESSION['message'] == 'success'): ?>
+            <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'success'): ?>
               <!-- show sweet alert success -->
               <!-- Show SweetAlert success -->
               <script>
                 document.addEventListener('DOMContentLoaded', function() {
                   Swal.fire({
                     title: 'Berhasil!',
-                    text: 'Data berhasil ditambahkan',
+                    text: '<?=  $_SESSION['msg'] ?>',
                     icon: 'success',
-                    confirmButtonText: 'Cool'
+                    confirmButtonText: 'OKE'
                   });
                 });
               </script>
 
             <?php
-            elseif (isset($_SESSION['message']) && $_SESSION['message'] == 'error'): ?>
+            elseif (isset($_SESSION['status']) && $_SESSION['status'] == 'error'): ?>
               <script>
                 document.addEventListener('DOMContentLoaded', function() {
                   Swal.fire({
                     title: 'Gagal!',
-                    text: 'Data gagal ditambahkan',
+                    text: '<?=  $_SESSION['msg'] ?>',
                     icon: 'error',
-                    confirmButtonText: 'Cool'
+                    confirmButtonText: 'OKE'
                   });
                 });
               </script>
             <?php
             endif;
-            unset($_SESSION['message']);
+            unset($_SESSION['status']);
+            unset($_SESSION['msg']);
             ?>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0 m-4">
@@ -113,7 +114,7 @@
                           <span class="badge badge-sm bg-gradient-primary"><?= $row['role'] ?></span>
                         </td>
                         <td class="align-middle text-center">
-                          <a href="../../../controller/admin/user_controller.php?id=<?= $row['id'] ?>&action=edit" class="text-secondary font-weight-bold text-xs">
+                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#modal-edit" data-id="<?= $row['id'] ?>" data-nama="<?= $row['nama_user'] ?>" data-username="<?= $row['username'] ?>" data-role="<?= $row['role'] ?>">
                             <i class="fas fa-edit"></i>
                           </a>
                           <a href="../../../controller/admin/user_controller.php?id=<?= $row['id'] ?>&action=delete" class="text-secondary font-weight-bold text-xs" onclick="confirmDelete(event, <?= $row['id'] ?>)">
@@ -122,8 +123,6 @@
                         </td>
                       </tr>
                     <?php } ?>
-
-
 
                   </tbody>
                 </table>
@@ -147,10 +146,13 @@
           </div>
         </footer>
       </div>
+      <?php include './add.php' ?>
   </main>
 
-  <?php include './add.php' ?>
   <?php include '../../../layout/sidebar_conf.php' ?>
+  <?php include './edit.php' ?>
+
+  
   <!-- Sweet alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!--   Core JS Files   -->
@@ -159,13 +161,34 @@
   <script src="../../../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../../../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../../../assets/js/plugins/chartjs.min.js"></script>
+  <script src="../../../assets/js/soft-ui-dashboard.min.js"></script>
 
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../../../assets/js/soft-ui-dashboard.min.js"></script>
   <script>
     let table = new DataTable('#tabelUser');
+
+    const modalEdit = document.getElementById('modal-edit'); 
+    modalEdit.addEventListener('show.bs.modal', () => {
+      const button = event.relatedTarget;
+      const id = button.getAttribute('data-id');
+      const nama = button.getAttribute('data-nama');
+      const username = button.getAttribute('data-username');
+      const role = button.getAttribute('data-role');
+
+      modalEdit.querySelector('#id').value = id;
+      modalEdit.querySelector('#nama').value = nama;
+      modalEdit.querySelector('#username').value = username;
+      
+      if (role == 'Admin') {
+        modalEdit.querySelector('#role').value = 1;
+      } else if (role == 'Guru') {
+        modalEdit.querySelector('#role').value = 2;
+      } else {
+        modalEdit.querySelector('#role').value = 3;
+      }
+    });
 
     function confirmDelete(event, id) {
       event.preventDefault(); // Prevent the default action of the <a> tag
@@ -190,6 +213,8 @@
         }
       });
     }
+
+    
   </script>
 </body>
 
