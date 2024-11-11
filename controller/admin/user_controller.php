@@ -1,11 +1,10 @@
 <?php
 
 // Include the connection file
-include '../../../connection/connection.php';
 
 function get_all_user()
 {
-    global $conn;
+    include '../../../connection/connection.php';
 
     $sql = "SELECT user.id, user.nama as nama_user, role.nama as role, user.username from user JOIN role ON user.role_id = role.id";
     $result = $conn->query($sql);
@@ -15,16 +14,18 @@ function get_all_user()
 
 function edit_user($id)
 {
-    global $conn;
+    include '../../connection/connection.php';
     $sql = "SELECT user.id, user.nama as nama_user, role.nama as role, user.username from user JOIN role ON user.role_id = role.id WHERE user.id = $id";
     $result = $conn->query($sql);
     return $result->fetch_assoc();
 }
 
 function delete_user($id){
-    global $conn;
+    include '../../connection/connection.php';
     $sql = "DELETE FROM user WHERE id = $id";
     $conn->query($sql);
+    
+    header('location: ../../pages/admin/user.php');
 }
 
 if (isset($_GET['action'])) {
