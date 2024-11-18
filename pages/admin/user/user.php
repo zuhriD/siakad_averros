@@ -176,7 +176,7 @@
       const nama = button.getAttribute('data-nama');
       const username = button.getAttribute('data-username');
       const role = button.getAttribute('data-role');
-
+      
       modalEdit.querySelector('#id').value = id;
       modalEdit.querySelector('#nama').value = nama;
       modalEdit.querySelector('#username').value = username;

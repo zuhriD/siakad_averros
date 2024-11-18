@@ -9,7 +9,7 @@
 
       <div class="modal-body
         ">
-            <form action="../../../controller/admin/kelas_controller.php?action=edit" method="POST">
+            <form action="../../../controller/admin/user_controller.php?action=edit" method="POST">
             <div class="form-group">
                 <label for="nama">Nama</label>
                 <input type="text" class="form-control" id="nama" name="nama" required>
@@ -22,7 +22,14 @@
                 <label for="wali_kelas">Wali Kelas</label>
                 <select class="form-control" id="wali_kelas" name="wali_kelas" required>
                     <option value="">Pilih wali_kelas</option>
-                   
+                    <?php
+                    $guru = get_all_guru();
+                    while ($row = mysqli_fetch_assoc($guru)) {
+                    ?>
+                        <option value="<?= $row['id'] ?>"><?= $row['nama'] ?></option>
+                    <?php
+                    }
+                    ?>
                 </select>
             </div>
             <div class="modal-footer">

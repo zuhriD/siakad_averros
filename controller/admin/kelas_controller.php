@@ -6,7 +6,7 @@ function get_all_kelas()
 {
     include '../../../connection/connection.php';
 
-    $sql = "SELECT kelas.id, kelas.nama as nama_kelas, kelas.kode_kelas, user.nama as wali_kelas from kelas JOIN user ON kelas.wali_kelas = user.id";
+    $sql = "SELECT kelas.id, kelas.nama as nama_kelas, kelas.kode_kelas, user.nama as wali_kelas, user.id as id_wali from kelas JOIN user ON kelas.wali_kelas = user.id";
     $result = $conn->query($sql);
 
     return $result;
@@ -21,15 +21,25 @@ function get_all_guru() {
     return $result;
 }
 
+function get_wali_kelas(){
+    include '../../connection/connection.php';
+    $sql = "SELECT * FROM user WHERE role_id = 2";
+    $result = $conn->query($sql);
+    $data = [];
+    while($row = mysqli_fetch_assoc($result)){
+        $data[] = $row;
+    }
+    echo json_encode($data);
+}
+
 function edit_kelas($id)
 {
     include '../../connection/connection.php';
     session_start();
     $nama = $_POST['nama'];
-    $kelasname = $_POST['kelasname'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $role = $_POST['role'];
-    $sql = "UPDATE kelas SET nama = '$nama', kelasname = '$kelasname', password = '$password', role_id = $role WHERE id = $id";
+    $kode_kelas = $_POST['kode_kelas'];
+    $wali_kelas = $_POST['wali_kelas'];
+    $sql = "UPDATE kelas SET nama = '$nama', kode_kelas = '$kode_kelas', wali_kelas = $wali_kelas WHERE id = $id";
     
     if($conn->query($sql) === TRUE){
         $_SESSION['status'] = "success";
@@ -84,5 +94,7 @@ if (isset($_GET['action'])) {
         header('location: ../../pages/admin/kelas/kelas.php');
     } elseif ($action == 'add') {
         add_kelas();
+    } elseif($action == 'get_wali_kelas'){
+        get_wali_kelas();
     }
 }
