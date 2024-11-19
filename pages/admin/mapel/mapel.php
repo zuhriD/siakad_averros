@@ -109,11 +109,8 @@
                         <td>
                           <p class="text-sm font-weight-bold mb-0"><?= $row['pengajar'] ?></p>
                         </td>
-                        <td class="text-sm">
-                          <span class="badge badge-sm bg-gradient-primary"><?= $row['wali_mapel'] ?></span>
-                        </td>
                         <td class="align-middle text-center">
-                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#modal-edit" data-id="<?= $row['id'] ?>" data-nama="<?= $row['nama_mapel'] ?>" data-pengajar="<?= $row['pengajar'] ?>" >
+                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#modal-edit" data-id="<?= $row['id'] ?>" data-nama="<?= $row['nama_mapel'] ?>" data-pengajar="<?= $row['id_pengajar'] ?>"  >
                             <i class="fas fa-edit"></i>
                           </a>
                           <a href="../../../controller/admin/mapel_controller.php?id=<?= $row['id'] ?>&action=delete" class="text-secondary font-weight-bold text-xs" onclick="confirmDelete(event, <?= $row['id'] ?>)">
@@ -178,9 +175,25 @@
       modalEdit.querySelector('#nama').value = nama;
       modalEdit.querySelector('#pengajar').value = pengajar;
       
-      if (pengajar == nama) {
-        modalEdit.querySelector('#pengajar').value = 1;
-      } 
+      $.ajax({
+        url: '../../../controller/admin/mapel_controller.php?action=get_wali_kelas',
+        type: 'GET',
+        success: function(data) {
+          let result = JSON.parse(data);
+          let option = '<option value="">Pilih wali_kelas</option>';
+          result.forEach(element => {
+            if (element.id == pengajar) {
+              option += `<option value="${element.id}" selected>${element.nama}</option>`;
+            } else {
+              option += `<option value="${element.id}">${element.nama}</option>`;
+            }
+          });
+          modalEdit.querySelector('#pengajar').innerHTML = option;
+        },
+        error: function(error){
+          console.log(error);
+        }
+      });
     });
 
     function confirmDelete(event, id) {

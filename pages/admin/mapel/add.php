@@ -1,28 +1,24 @@
 <!-- modal add -->
-<div class="modal fade" id="modal-add-kelas" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
+<div class="modal fade" id="modal-add-mapel" tabindex="-1" role="dialog" aria-labelledby="modal-add" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">     
 
       <div class="modal-header">
-        <h6 class="modal-title" id="modal-title-default">Tambah kelas</h6>
+        <h6 class="modal-title" id="modal-title-default">Tambah mapel</h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body
         ">
-            <form action="../../../controller/admin/kelas_controller.php?action=add" method="POST">
+            <form action="../../../controller/admin/mapel_controller.php?action=add" method="POST">
             <div class="form-group">
-                <label for="nama">Nama Kelas</label>
+                <label for="nama">Nama mapel</label>
                 <input type="text" class="form-control"  name="nama" required>
             </div>
             <div class="form-group">
-                <label for="kode_kelas">Kode Kelas</label>
-                <input type="text" class="form-control"  name="kode_kelas" required>
-            </div>
-            <div class="form-group">
-                <label for="role">Wali Kelas</label>
-                <select class="form-control"  name="wali_kelas" required>
-                    <option value="">Pilih Wali kelas</option>
+                <label for="role">Pengajar</label>
+                <select class="form-control"  name="pengajar" required>
+                    <option value="">Pilih Pengajar</option>
                     <?php
                     $guru = get_all_guru();
                     while ($row = mysqli_fetch_assoc($guru)) {

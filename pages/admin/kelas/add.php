@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label for="role">Wali Kelas</label>
-                <select class="form-control"  name="wali_kelas" required>
+                <select class="form-select"  name="wali_kelas" id="guru_kelas" required>
                     <option value="">Pilih Wali kelas</option>
                     <?php
                     $guru = get_all_guru();

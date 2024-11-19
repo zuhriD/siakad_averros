@@ -26,6 +26,10 @@
   <!-- Datatables -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+
+  <!-- Select 2 JS -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -202,18 +206,6 @@
       });
     });
 
-    // $.ajax({
-    //   url: '../../../controller/admin/kelas_controller.php?action=get_wali_kelas',
-    //   type: 'GET',
-    //   success: function(data){
-    //     let d = JSON.parse(data);
-    //     console.log(d);
-    //   },
-    //   error: function(error){
-    //     console.log(error);
-    //   },
-    // });
-
     function confirmDelete(event, id) {
       event.preventDefault(); // Prevent the default action of the <a> tag
       Swal.fire({
@@ -237,8 +229,15 @@
         }
       });
     }
-
     
+  </script>
+  <script>
+     $( '#guru_kelas' ).select2( {
+    theme: "bootstrap-5",
+    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+    placeholder: $( this ).data( 'placeholder' ),
+} );
+
   </script>
 </body>
 

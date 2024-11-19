@@ -6,10 +6,20 @@ function get_all_mapel()
 {
     include '../../../connection/connection.php';
 
-    $sql = "SELECT mapel.id, mapel.nama as nama_mapel, user.nama as pengajar from mapel JOIN user ON mapel.pengajar = user.id";
+    $sql = "SELECT mapel.id, mapel.nama as nama_mapel, user.nama as pengajar, user.id as id_pengajar from mapel JOIN user ON mapel.pengajar = user.id";
     $result = $conn->query($sql);
 
     return $result;
+}
+function get_wali_kelas(){
+    include '../../connection/connection.php';
+    $sql = "SELECT * FROM user WHERE role_id = 2";
+    $result = $conn->query($sql);
+    $data = [];
+    while($row = mysqli_fetch_assoc($result)){
+        $data[] = $row;
+    }
+    echo json_encode($data);
 }
 
 function get_all_guru() {
@@ -55,10 +65,9 @@ function add_mapel(){
     include '../../connection/connection.php';
     session_start();
     $nama = $_POST['nama'];
-    $kode_mapel = $_POST['kode_mapel'];
-    $wali_mapel = $_POST['wali_mapel'];
+    $pengajar = $_POST['pengajar'];
 
-    $sql = "INSERT INTO mapel VALUES (null, '$nama', '$kode_mapel', $wali_mapel)";
+    $sql = "INSERT INTO mapel VALUES (null, '$nama', $pengajar)";
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['status'] = "success";
@@ -84,5 +93,7 @@ if (isset($_GET['action'])) {
         header('location: ../../pages/admin/mapel/mapel.php');
     } elseif ($action == 'add') {
         add_mapel();
+    } elseif ($action == 'get_wali_kelas'){
+        get_wali_kelas();
     }
 }
