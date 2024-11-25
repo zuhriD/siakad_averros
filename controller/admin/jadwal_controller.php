@@ -86,11 +86,14 @@ function delete_jadwal($id){
 function add_jadwal(){
     include '../../connection/connection.php';
     session_start();
-    $nama = $_POST['nama'];
-    $kode_jadwal = $_POST['kode_jadwal'];
-    $wali_jadwal = $_POST['wali_jadwal'];
+    $nama_kelas = $_POST['nama_kelas'];
+    $mapel = $_POST['mapel'];
+    $hari = $_POST['hari'];
+    $pengajar = $_POST['pengajar'];
+    $jam_mulai = $_POST['jam_mulai'];
+    $jam_selesai = $_POST['jam_selesai'];
 
-    $sql = "INSERT INTO jadwal VALUES (null, '$nama', '$kode_jadwal', $wali_jadwal)";
+    $sql = "INSERT INTO jadwal VALUES (null,'$nama_kelas', '$mapel', '$pengajar' ,'$hari', '$jam_mulai', '$jam_selesai')";
 
     if ($conn->query($sql) === TRUE) {
         $_SESSION['status'] = "success";

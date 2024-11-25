@@ -19,7 +19,7 @@
                     $kelas = get_all_kelas();
                     while ($row = mysqli_fetch_assoc($kelas)) {
                     ?>
-                        <option value="<?= $row['id'] ?>"><?= $row['nama_kelas'] ?></option>
+                        <option value="<?= $row['id'] ?>"><?= $row['nama'] ?></option>
                     <?php
                     }
                     ?>

@@ -244,9 +244,15 @@
     
   </script>
   <script>
-     $( '.selectKelas' ).select2( {
-    dropdownParent: $( '.modal' )
-} );
+    $(document).ready(function() {
+    $('.select2').select2(
+      {
+        placeholder: "Pilih Kelas",
+        allowClear: true,
+        dropdownParent: $('#modal-add-jadwal')
+      }
+    );
+});
 
   </script>
 </body>
