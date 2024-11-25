@@ -53,6 +53,14 @@
             <span class="nav-link-text ms-1">Mata Pelajaran</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link <?= $page == 'jadwal' ? 'active' : ''?> " href="<?php echo '/siakad_averros/pages/admin/jadwal/jadwal.php'; ?>">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fa fa-list <?= $page == 'jadwal' ? 'text-white' : 'text-dark'?>"></i>
+            </div>
+            <span class="nav-link-text ms-1">Jadwal Kelas</span>
+          </a>
+        </li>
        <?php }elseif($_SESSION['role'] == 2) { ?>
         <li class="nav-item">
           <a class="nav-link <?= $page == 'index' ? 'active' : ''?>" href="<?php echo '/siakad_averros/pages/guru/index.php'; ?>">

@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../../../assets/img/logoaverroes.png">
   <title>
-    Kelas Page | Siakad Averroes
+    jadwal Page | Siakad Averroes
   </title>
 
   <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
@@ -49,9 +49,9 @@
         <div class="col-lg-12 col-12">
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center pb-0">
-              <h6>Daftar Kelas</h6>
+              <h6>Daftar jadwal</h6>
               <!-- Add button -->
-              <a href="" class="btn bg-success text-white mt-2" data-bs-toggle="modal" data-bs-target="#modal-add-kelas"><i class="fas fa-plus"></i> Tambah Kelas</a>
+              <a href="" class="btn bg-success text-white mt-2" data-bs-toggle="modal" data-bs-target="#modal-add-jadwal"><i class="fas fa-plus"></i> Tambah jadwal</a>
             </div>
 
             <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'success'): ?>
@@ -87,21 +87,24 @@
             ?>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0 m-4">
-                <table class="table align-items-center mb-0" id="tabelKelas">
+                <table class="table align-items-center mb-0" id="tabeljadwal">
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kode Kelas</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Wali Kelas</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Kelas </th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Mata Pelajaran</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Hari</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Pengajar</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jam Mulai</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jam Selesai</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                    include '../../../controller/admin/kelas_controller.php';
+                    include '../../../controller/admin/jadwal_controller.php';
                     $no = 1;
-                    $data = get_all_kelas();
+                    $data = get_all_jadwal();
                     while ($row = mysqli_fetch_assoc($data)) {
                     ?>
                       <tr>
@@ -112,16 +115,25 @@
                           <p class="text-sm font-weight-bold mb-0"><?= $row['nama_kelas'] ?></p>
                         </td>
                         <td>
-                          <p class="text-sm font-weight-bold mb-0"><?= $row['kode_kelas'] ?></p>
+                          <p class="text-sm font-weight-bold mb-0"><?= $row['nama_mapel'] ?></p>
                         </td>
-                        <td class="text-sm">
-                          <span class="badge badge-sm bg-gradient-primary"><?= $row['wali_kelas'] ?></span>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0"><?= $row['hari'] ?></p>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0"><?= $row['pengajar'] ?></p>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0"><?= $row['jam_mulai'] ?></p>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0"><?= $row['jam_selesai'] ?></p>
                         </td>
                         <td class="align-middle text-center">
-                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#modal-edit" data-id="<?= $row['id'] ?>" data-nama="<?= $row['nama_kelas'] ?>" data-kode="<?= $row['kode_kelas'] ?>" data-wali="<?= $row['id_wali'] ?>">
+                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#modal-edit" >
                             <i class="fas fa-edit"></i>
                           </a>
-                          <a href="../../../controller/admin/kelas_controller.php?id=<?= $row['id'] ?>&action=delete" class="text-secondary font-weight-bold text-xs" onclick="confirmDelete(event, <?= $row['id'] ?>)">
+                          <a href="../../../controller/admin/jadwal_controller.php?id=<?= $row['id'] ?>&action=delete" class="text-secondary font-weight-bold text-xs" onclick="confirmDelete(event, <?= $row['id'] ?>)">
                             <i class="fas fa-trash"></i>
                           </a>
                         </td>
@@ -171,26 +183,26 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script>
-    let table = new DataTable('#tabelKelas');
+    let table = new DataTable('#tabeljadwal');
 
     const modalEdit = document.getElementById('modal-edit'); 
     modalEdit.addEventListener('show.bs.modal', () => {
       const button = event.relatedTarget;
       const id = button.getAttribute('data-id');
       const nama = button.getAttribute('data-nama');
-      const kode_kelas = button.getAttribute('data-kode');
+      const kode_jadwal = button.getAttribute('data-kode');
       const wali = button.getAttribute('data-wali');
 
       modalEdit.querySelector('#id').value = id;
       modalEdit.querySelector('#nama').value = nama;
-      modalEdit.querySelector('#kode_kelas').value = kode_kelas;
+      modalEdit.querySelector('#kode_jadwal').value = kode_jadwal;
       
       $.ajax({
-        url: '../../../controller/admin/kelas_controller.php?action=get_wali_kelas',
+        url: '../../../controller/admin/jadwal_controller.php?action=get_wali_jadwal',
         type: 'GET',
         success: function(data) {
           let result = JSON.parse(data);
-          let option = '<option value="">Pilih wali_kelas</option>';
+          let option = '<option value="">Pilih wali_jadwal</option>';
           result.forEach(element => {
             if (element.id == wali) {
               option += `<option value="${element.id}" selected>${element.nama}</option>`;
@@ -198,7 +210,7 @@
               option += `<option value="${element.id}">${element.nama}</option>`;
             }
           });
-          modalEdit.querySelector('#wali_kelas').innerHTML = option;
+          modalEdit.querySelector('#wali_jadwal').innerHTML = option;
         },
         error: function(error){
           console.log(error);
@@ -232,10 +244,7 @@
     
   </script>
   <script>
-     $( '#guru_kelas' ).select2( {
-    theme: "bootstrap-5",
-    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-    placeholder: $( this ).data( 'placeholder' ),
+     $( '.selectKelas' ).select2( {
     dropdownParent: $( '.modal' )
 } );
 
