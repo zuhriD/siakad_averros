@@ -11,19 +11,67 @@
         ">
             <form action="../../../controller/admin/kelas_controller.php?action=edit" method="POST">
             <div class="form-group">
-                <label for="nama">Nama</label>
-                <input type="text" class="form-control" id="nama" name="nama" required>
-            </div>
-            <div class="form-group">
-                <label for="kode_kelas">Kode Kelas</label>
-                <input type="text" class="form-control" id="kode_kelas" name="kode_kelas" required>
-            </div>
-            <div class="form-group">
-                <label for="wali_kelas">Wali Kelas</label>
-                <select class="form-control" id="wali_kelas" name="wali_kelas" required>
-                    <option value="">Pilih wali_kelas</option>
-                   
+                <label for="nama_kelas">Nama Kelas</label>
+                <select class="form-select select2" name="nama_kelas" id="nama_kelas" required>
+                    <option value="">Pilih Kelas</option>
+                    <?php
+                    $kelas = get_all_kelas();
+                    while ($row = mysqli_fetch_assoc($kelas)) {
+                    ?>
+                        <option value="<?= $row['id'] ?>"><?= $row['nama'] ?></option>
+                    <?php
+                    }
+                    ?>
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="mapel">Mata Pelajaran</label>
+                <select class="form-select" name="mapel" id="mapel" required>
+                    <option value="">Pilih Mata Pelajaran</option>
+                    <?php
+                    $mapel = get_all_mapel();
+                    while ($row = mysqli_fetch_assoc($mapel)) {
+                    ?>
+                        <option value="<?= $row['id'] ?>"><?= $row['nama'] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="hari">Hari</label>
+                <select class="form-select" name="hari" id="hari" required>
+                    <option value="">Pilih Hari</option>
+                    <option value="Senin">Senin</option>
+                    <option value="Selasa">Selasa</option>
+                    <option value="Rabu">Rabu</option>
+                    <option value="Kamis">Kamis</option>
+                    <option value="Jumat">Jumat</option>
+                    <option value="Sabtu">Sabtu</option>
+                </select>
+            </div>
+            <!-- pengajar -->
+            <div class="form-group">
+                <label for="pengajar">Pengajar</label>
+                <select class="form-select" name="pengajar" id="pengajar" required>
+                    <option value="">Pilih Pengajar</option>
+                    <?php
+                    $guru = get_all_guru();
+                    while ($row = mysqli_fetch_assoc($guru)) {
+                    ?>
+                        <option value="<?= $row['id'] ?>"><?= $row['nama'] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select> 
+            </div>
+            <div class="form-group">
+                <label for="jam_mulai">Jam Mulai</label>
+                <input type="time" class="form-control" name="jam_mulai" id="jam_mulai" required>
+            </div>
+            <div class="form-group">
+                <label for="jam_selesai">Jam Selesai</label>
+                <input type="time" class="form-control" name="jam_selesai" id="jam_selesai" required>
             </div>
             <div class="modal-footer">
                 <input type="hidden" id="id" name="id">

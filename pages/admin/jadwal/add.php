@@ -42,7 +42,7 @@
             <div class="form-group">
                 <label for="hari">Hari</label>
                 <select class="form-select" name="hari" id="hari" required>
-                    <option value="">Pilih Hari</option>
+                    <option value="" >Pilih Hari</option>
                     <option value="Senin">Senin</option>
                     <option value="Selasa">Selasa</option>
                     <option value="Rabu">Rabu</option>

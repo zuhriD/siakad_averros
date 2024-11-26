@@ -130,7 +130,7 @@
                           <p class="text-sm font-weight-bold mb-0"><?= $row['jam_selesai'] ?></p>
                         </td>
                         <td class="align-middle text-center">
-                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#modal-edit" >
+                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#modal-edit"  data-id="<?= $row['id'] ?>" data-kelas="<?= $row['nama_kelas'] ?>" data-mapel="<?= $row['nama_mapel'] ?>" data-hari="<?= $row['hari'] ?>" data-pengajar="<?= $row['pengajar'] ?>" data-jam_mulai="<?= $row['jam_mulai'] ?>" data-jam_selesai="<?= $row['jam_selesai'] ?>">
                             <i class="fas fa-edit"></i>
                           </a>
                           <a href="../../../controller/admin/jadwal_controller.php?id=<?= $row['id'] ?>&action=delete" class="text-secondary font-weight-bold text-xs" onclick="confirmDelete(event, <?= $row['id'] ?>)">
@@ -192,10 +192,30 @@
       const nama = button.getAttribute('data-nama');
       const kode_jadwal = button.getAttribute('data-kode');
       const wali = button.getAttribute('data-wali');
+      const hari = button.getAttribute('data-hari');
 
       modalEdit.querySelector('#id').value = id;
-      modalEdit.querySelector('#nama').value = nama;
-      modalEdit.querySelector('#kode_jadwal').value = kode_jadwal;
+      console.log(hari);
+      switch(hari){
+        case 'Senin':
+          modalEdit.querySelector('#hari').value = 'Senin';
+          break;
+        case 'Selasa':
+          modalEdit.querySelector('#hari').value = 'Selasa';
+          break;
+        case 'Rabu':
+          modalEdit.querySelector('#hari').value = 'Rabu';
+          break;
+        case 'Kamis':
+          modalEdit.querySelector('#hari').value = 'Kamis';
+          break;
+        case 'Jumat':
+          modalEdit.querySelector('#hari').value = 'Jumat';
+          break;
+        case 'Sabtu':
+          modalEdit.querySelector('#hari').value = 'Sabtu';
+          break;
+      }
       
       $.ajax({
         url: '../../../controller/admin/jadwal_controller.php?action=get_wali_jadwal',

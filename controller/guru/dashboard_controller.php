@@ -1,10 +1,9 @@
 <?php
 
-include '/siakad_averros/connection/connection.php';
 
 function get_jadwal_hari_ini()
 {
-    global $conn;
+    include '../../connection/connection.php';
     $id = $_SESSION['id'];
     $sql = "SELECT jadwal.id, kelas.nama AS nama_kelas, mapel.nama AS nama_mapel, user.nama AS pengajar, 
     jadwal.jam_mulai, jadwal.jam_selesai

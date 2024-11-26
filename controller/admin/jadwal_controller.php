@@ -59,10 +59,9 @@ function edit_jadwal($id)
     include '../../connection/connection.php';
     session_start();
     $nama = $_POST['nama'];
-    $kode_jadwal = $_POST['kode_jadwal'];
+    $kode_jadwal = $_POST['kode_jadwal']; 
     $wali_jadwal = $_POST['wali_jadwal'];
     $sql = "UPDATE jadwal SET nama = '$nama', kode_jadwal = '$kode_jadwal', wali_jadwal = $wali_jadwal WHERE id = $id";
-    
     if($conn->query($sql) === TRUE){
         $_SESSION['status'] = "success";
         $_SESSION['msg'] = "Data Berhasil Diubah";
